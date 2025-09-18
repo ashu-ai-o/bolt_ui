@@ -392,40 +392,40 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-black rounded-lg shadow-2xl w-full max-w-6xl h-[80vh] flex overflow-hidden border border-gray-200 dark:border-gray-800">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-white dark:bg-black rounded-lg shadow-2xl w-full max-w-6xl h-[90vh] sm:h-[80vh] flex flex-col sm:flex-row overflow-hidden border border-gray-200 dark:border-gray-800">
         {/* Sidebar */}
-        <div className="w-80 bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col">
-          <div className="p-4 border-b border-gray-200 dark:border-gray-800">
-            <h2 className="text-gray-900 dark:text-white font-semibold text-lg">Project Settings</h2>
+        <div className="w-full sm:w-80 bg-gray-50 dark:bg-gray-900 border-b sm:border-r sm:border-b-0 border-gray-200 dark:border-gray-800 flex flex-col max-h-48 sm:max-h-none">
+          <div className="p-3 sm:p-4 border-b border-gray-200 dark:border-gray-800">
+            <h2 className="text-gray-900 dark:text-white font-semibold text-base sm:text-lg">Project Settings</h2>
           </div>
           
-          <div className="flex-1 overflow-y-auto">
-            <div className="p-2">
+          <div className="flex-1 overflow-y-auto overflow-x-auto sm:overflow-x-visible">
+            <div className="flex sm:block p-2 gap-2 sm:gap-0">
               {projectSections.map((section) => {
                 const Icon = section.icon;
                 return (
                   <button
                     key={section.id}
                     onClick={() => setActiveSection(section.id)}
-                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-left transition-all duration-200 ${
+                    className={`whitespace-nowrap sm:w-full flex items-center gap-2 sm:gap-3 px-2 sm:px-3 py-2 rounded-md text-left transition-all duration-200 ${
                       activeSection === section.id
                         ? 'bg-blue-600 text-white'
                         : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
                   >
                     <Icon size={16} />
-                    <span className="text-sm">{section.label}</span>
+                    <span className="text-xs sm:text-sm">{section.label}</span>
                   </button>
                 );
               })}
             </div>
 
-            <div className="p-4 theme-border border-t">
-              <h3 className="text-gray-900 dark:text-white font-medium mb-2">Personal Settings</h3>
+            <div className="hidden sm:block p-4 theme-border border-t">
+              <h3 className="text-gray-900 dark:text-white font-medium mb-2 text-sm">Personal Settings</h3>
             </div>
 
-            <div className="p-2">
+            <div className="hidden sm:block p-2">
               {personalSections.map((section) => {
                 const Icon = section.icon;
                 return (
@@ -439,7 +439,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                     }`}
                   >
                     <Icon size={16} />
-                    <span className="text-sm">{section.label}</span>
+                    <span className="text-xs sm:text-sm">{section.label}</span>
                   </button>
                 );
               })}
@@ -450,18 +450,18 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         {/* Main Content */}
         <div className="flex-1 flex flex-col">
           {/* Header */}
-          <div className="h-14 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6">
-            <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Settings</h1>
+          <div className="h-12 sm:h-14 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-3 sm:px-6">
+            <h1 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Settings</h1>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
+              className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
             >
-              <X size={20} className="text-gray-500 dark:text-gray-400" />
+              <X size={18} className="sm:w-5 sm:h-5 text-gray-500 dark:text-gray-400" />
             </button>
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6">
+          <div className="flex-1 overflow-y-auto p-3 sm:p-6">
             {projectSections.some(s => s.id === activeSection) ? renderProjectSettings() : renderPersonalSettings()}
           </div>
         </div>

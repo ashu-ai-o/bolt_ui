@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { File, Folder, FolderOpen, ChevronDown, ChevronRight, Monitor, Smartphone, Tablet, RotateCcw, ExternalLink, Eye } from 'lucide-react';
+import { File, Folder, FolderOpen, ChevronDown, ChevronRight, Monitor, Smartphone, Tablet, RotateCcw, ExternalLink, Eye, Menu } from 'lucide-react';
 import { useAppState } from '../../contexts/AppStateContext';
 
 interface FileItemProps {
@@ -112,8 +112,8 @@ export function CodeSection() {
 
   const getPreviewSize = () => {
     switch (deviceMode) {
-      case 'mobile': return 'w-80';
-      case 'tablet': return 'w-96';
+      case 'mobile': return 'w-full max-w-sm';
+      case 'tablet': return 'w-full max-w-2xl';
       default: return 'w-full';
     }
   };
@@ -121,10 +121,18 @@ export function CodeSection() {
   return (
     <div className="flex-1 flex flex-col">
       {/* Tab Bar */}
-      <div className="h-12 theme-bg-secondary theme-border border-b flex items-center px-6">
+      <div className="h-12 theme-bg-secondary theme-border border-b flex items-center px-3 sm:px-6">
+        {/* Mobile menu button */}
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="lg:hidden p-2 theme-text-tertiary hover:theme-text-primary transition-colors mr-2"
+        >
+          <Menu size={20} />
+        </button>
+        
         <button
           onClick={() => setActiveTab('Code')}
-          className={`px-6 py-3 text-sm font-medium transition-all duration-200 border-b-2 ${
+          className={`px-3 sm:px-6 py-3 text-sm font-medium transition-all duration-200 border-b-2 ${
             activeTab === 'Code'
               ? 'theme-text-primary border-blue-500'
               : 'theme-text-tertiary border-transparent hover:theme-text-secondary'
@@ -134,7 +142,7 @@ export function CodeSection() {
         </button>
         <button
           onClick={() => setActiveTab('Preview')}
-          className={`px-6 py-3 text-sm font-medium transition-all duration-200 border-b-2 ${
+          className={`px-3 sm:px-6 py-3 text-sm font-medium transition-all duration-200 border-b-2 ${
             activeTab === 'Preview'
               ? 'theme-text-primary border-blue-500'
               : 'theme-text-tertiary border-transparent hover:theme-text-secondary'
@@ -147,8 +155,8 @@ export function CodeSection() {
       {activeTab === 'Code' ? (
         <div className="flex-1 flex">
           {/* File Explorer */}
-          <div className="w-64 theme-bg-secondary theme-border border-r flex flex-col">
-            <div className="px-4 py-3 theme-border border-b">
+          <div className="hidden md:flex w-48 lg:w-64 theme-bg-secondary theme-border border-r flex-col">
+            <div className="px-3 lg:px-4 py-3 theme-border border-b">
               <div className="flex items-center gap-2">
                 <File size={16} className="theme-text-tertiary" />
                 <span className="theme-text-primary font-medium text-sm">Files</span>
@@ -166,7 +174,7 @@ export function CodeSection() {
           <div className="flex-1 flex flex-col">
             {/* File Tabs */}
             {openFiles.length > 0 && (
-              <div className="h-10 bg-black border-b border-gray-800 flex items-center overflow-x-auto px-2">
+              <div className="h-10 bg-black border-b border-gray-800 flex items-center overflow-x-auto px-1 sm:px-2">
                 {openFiles.map(fileId => {
                   const file = getFileById(fileId);
                   if (!file) return null;
@@ -175,7 +183,7 @@ export function CodeSection() {
                     <div
                       key={fileId}
                       onClick={() => setActiveFile(fileId)}
-                      className={`flex items-center gap-2 px-4 py-2 cursor-pointer border-r border-gray-800 text-xs whitespace-nowrap ${
+                      className={`flex items-center gap-2 px-2 sm:px-4 py-2 cursor-pointer border-r border-gray-800 text-xs whitespace-nowrap ${
                         activeFile === fileId 
                           ? 'bg-gray-900 text-white' 
                           : 'bg-black text-gray-400 hover:text-gray-300'
@@ -197,20 +205,20 @@ export function CodeSection() {
             {/* Code Editor */}
             <div className="flex-1 bg-black flex">
               {/* Line Numbers */}
-              <div className="w-14 bg-gray-900 border-r border-gray-800 flex flex-col text-xs text-gray-500 font-mono pt-4">
+              <div className="w-8 sm:w-12 lg:w-14 bg-gray-900 border-r border-gray-800 flex flex-col text-xs text-gray-500 font-mono pt-4">
                 {currentFile?.content?.split('\n').map((_, index) => (
-                  <div key={index} className="px-3 py-0.5 text-right leading-6">
+                  <div key={index} className="px-1 sm:px-2 lg:px-3 py-0.5 text-right leading-6">
                     {index + 1}
                   </div>
                 )) || Array.from({ length: 50 }, (_, index) => (
-                  <div key={index} className="px-3 py-0.5 text-right leading-6">
+                  <div key={index} className="px-1 sm:px-2 lg:px-3 py-0.5 text-right leading-6">
                     {index + 1}
                   </div>
                 ))}
               </div>
               
               {/* Code Content */}
-              <div className="flex-1 p-6 font-mono text-sm overflow-auto">
+              <div className="flex-1 p-2 sm:p-4 lg:p-6 font-mono text-xs sm:text-sm overflow-auto">
                 {currentFile ? (
                   <pre className="text-white leading-6">
                     <code dangerouslySetInnerHTML={{ 
@@ -230,57 +238,57 @@ export function CodeSection() {
         /* Preview Only - Full Screen */
         <div className="flex-1 flex flex-col bg-white dark:bg-black">
           {/* Preview Controls */}
-          <div className="h-14 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6">
+          <div className="h-12 sm:h-14 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-3 sm:px-6">
             <div className="flex items-center gap-2">
               <Eye size={16} className="text-gray-600 dark:text-white" />
-              <span className="text-sm font-medium text-gray-900 dark:text-white">Preview</span>
+              <span className="text-xs sm:text-sm font-medium text-gray-900 dark:text-white">Preview</span>
             </div>
             
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               <button
                 onClick={() => setDeviceMode('desktop')}
-                className={`p-2 rounded-md transition-colors ${
+                className={`p-1.5 sm:p-2 rounded-md transition-colors ${
                   deviceMode === 'desktop' 
                     ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400' 
                     : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300'
                 }`}
               >
-                <Monitor size={14} />
+                <Monitor size={12} className="sm:w-4 sm:h-4" />
               </button>
               <button
                 onClick={() => setDeviceMode('tablet')}
-                className={`p-2 rounded-md transition-colors ${
+                className={`p-1.5 sm:p-2 rounded-md transition-colors ${
                   deviceMode === 'tablet' 
                     ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400' 
                     : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300'
                 }`}
               >
-                <Tablet size={14} />
+                <Tablet size={12} className="sm:w-4 sm:h-4" />
               </button>
               <button
                 onClick={() => setDeviceMode('mobile')}
-                className={`p-2 rounded-md transition-colors ${
+                className={`p-1.5 sm:p-2 rounded-md transition-colors ${
                   deviceMode === 'mobile' 
                     ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400' 
                     : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300'
                 }`}
               >
-                <Smartphone size={14} />
+                <Smartphone size={12} className="sm:w-4 sm:h-4" />
               </button>
               
-              <div className="w-px h-4 bg-gray-300 dark:bg-gray-600 mx-2" />
+              <div className="w-px h-4 bg-gray-300 dark:bg-gray-600 mx-1 sm:mx-2" />
               
-              <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
-                <RotateCcw size={14} className="text-gray-600 dark:text-gray-300" />
+              <button className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
+                <RotateCcw size={12} className="sm:w-4 sm:h-4 text-gray-600 dark:text-gray-300" />
               </button>
-              <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
-                <ExternalLink size={14} className="text-gray-600 dark:text-gray-300" />
+              <button className="p-1.5 sm:p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
+                <ExternalLink size={12} className="sm:w-4 sm:h-4 text-gray-600 dark:text-gray-300" />
               </button>
             </div>
           </div>
 
           {/* URL Bar */}
-          <div className="px-6 py-3 border-b border-gray-200 dark:border-gray-800">
+          <div className="px-3 sm:px-6 py-2 sm:py-3 border-b border-gray-200 dark:border-gray-800">
             <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <span>http://localhost:5173</span>
@@ -288,7 +296,7 @@ export function CodeSection() {
           </div>
 
           {/* Preview Content - Full Screen */}
-          <div className="flex-1 p-6 bg-gray-50 dark:bg-black flex items-center justify-center">
+          <div className="flex-1 p-2 sm:p-4 lg:p-6 bg-gray-50 dark:bg-black flex items-center justify-center">
             <div className={`${getPreviewSize()} h-full bg-white dark:bg-gray-900 rounded-xl shadow-xl overflow-hidden transition-all duration-300`}>
               <iframe
                 src="data:text/html,<html><body style='margin:0;padding:40px;font-family:system-ui;background:linear-gradient(135deg,%20rgb(139%2C%2092%2C%20246)%200%25%2C%20rgb(59%2C%20130%2C%20246)%2050%25%2C%20rgb(16%2C%20185%2C%20129)%20100%25);min-height:100vh;display:flex;align-items:center;justify-content:center;color:white'><div style='text-align:center;max-width:400px'><h1 style='font-size:2.5rem;margin-bottom:1rem;font-weight:bold'>Zenflow</h1><p style='font-size:1.2rem;opacity:0.9;margin-bottom:2rem'>Productivity App with Beautiful Animations</p><div style='background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:12px;padding:2rem;border:1px solid rgba(255,255,255,0.2)'><h3 style='margin-bottom:1rem'>Features:</h3><ul style='text-align:left;line-height:1.8'><li>✨ Task Management</li><li>🎯 Habit Tracking</li><li>🌙 Dark/Light Theme</li><li>📱 Responsive Design</li></ul></div></div></body></html>"

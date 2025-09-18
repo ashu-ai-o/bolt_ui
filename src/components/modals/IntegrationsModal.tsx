@@ -288,28 +288,28 @@ export function IntegrationsModal({ isOpen, onClose }: IntegrationsModalProps) {
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div className="bg-white dark:bg-black rounded-lg shadow-2xl w-full max-w-4xl h-[80vh] flex flex-col overflow-hidden border border-gray-200 dark:border-gray-800">
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
+        <div className="bg-white dark:bg-black rounded-lg shadow-2xl w-full max-w-4xl h-[90vh] sm:h-[80vh] flex flex-col overflow-hidden border border-gray-200 dark:border-gray-800">
           {/* Header */}
-          <div className="p-6 border-b border-gray-200 dark:border-gray-800">
+          <div className="p-3 sm:p-6 border-b border-gray-200 dark:border-gray-800">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Plus className="text-blue-500" size={24} />
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Integrations</h2>
+                <h2 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">Integrations</h2>
               </div>
               <button
                 onClick={onClose}
-                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
               >
-                <X size={24} />
+                <X size={20} className="sm:w-6 sm:h-6" />
               </button>
             </div>
             
             {/* Tabs */}
-            <div className="flex gap-1 mt-4 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+            <div className="flex gap-1 mt-3 sm:mt-4 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
               <button
                 onClick={() => setActiveTab('available')}
-                className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                className={`flex-1 px-2 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md transition-all ${
                   activeTab === 'available'
                     ? 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
@@ -319,7 +319,7 @@ export function IntegrationsModal({ isOpen, onClose }: IntegrationsModalProps) {
               </button>
               <button
                 onClick={() => setActiveTab('connected')}
-                className={`flex-1 px-4 py-2 text-sm font-medium rounded-md transition-all ${
+                className={`flex-1 px-2 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md transition-all ${
                   activeTab === 'connected'
                     ? 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white shadow-sm'
                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
@@ -331,10 +331,10 @@ export function IntegrationsModal({ isOpen, onClose }: IntegrationsModalProps) {
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6">
+          <div className="flex-1 overflow-y-auto p-3 sm:p-6">
             {activeTab === 'available' ? (
               <div className="space-y-4">
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 sm:mb-6">
                   Connect external services to enhance your development workflow
                 </p>
                 
@@ -343,17 +343,17 @@ export function IntegrationsModal({ isOpen, onClose }: IntegrationsModalProps) {
                   return (
                     <div
                       key={integration.id}
-                      className="border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-700 transition-colors"
+                      className="border border-gray-200 dark:border-gray-800 rounded-lg p-3 sm:p-6 hover:border-gray-300 dark:hover:border-gray-700 transition-colors"
                     >
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-start gap-4">
+                      <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-0">
+                        <div className="flex items-start gap-3 sm:gap-4 flex-1">
                           <div className={`p-3 rounded-lg ${
                             integration.type === 'supabase' 
                               ? 'bg-green-100 dark:bg-green-900/20' 
                               : 'bg-gray-100 dark:bg-gray-800'
                           }`}>
                             <Icon 
-                              size={24} 
+                              size={20} 
                               className={
                                 integration.type === 'supabase' 
                                   ? 'text-green-600 dark:text-green-400' 
@@ -362,13 +362,13 @@ export function IntegrationsModal({ isOpen, onClose }: IntegrationsModalProps) {
                             />
                           </div>
                           <div>
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                            <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1">
                               {integration.name}
                             </h3>
-                            <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+                            <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-3">
                               {integration.description}
                             </p>
-                            <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                            <div className="flex items-center gap-4 text-xs sm:text-xs text-gray-500 dark:text-gray-400">
                               <span className="flex items-center gap-1">
                                 <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
                                 Not connected
@@ -384,9 +384,9 @@ export function IntegrationsModal({ isOpen, onClose }: IntegrationsModalProps) {
                               setShowGithubSetup(true);
                             }
                           }}
-                          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md transition-colors flex items-center gap-2"
+                          className="px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm rounded-md transition-colors flex items-center gap-2 self-start sm:self-auto"
                         >
-                          <Plus size={16} />
+                          <Plus size={14} className="sm:w-4 sm:h-4" />
                           Connect
                         </button>
                       </div>
@@ -398,18 +398,18 @@ export function IntegrationsModal({ isOpen, onClose }: IntegrationsModalProps) {
               <div className="space-y-4">
                 {connectedIntegrations.length === 0 ? (
                   <div className="text-center py-12">
-                    <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <div className="w-12 sm:w-16 h-12 sm:h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Plus size={24} className="text-gray-400" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                    <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white mb-2">
                       No integrations connected
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                       Connect your first integration to get started
                     </p>
                     <button
                       onClick={() => setActiveTab('available')}
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                      className="px-3 sm:px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md transition-colors"
                     >
                       Browse Available Integrations
                     </button>
@@ -420,17 +420,17 @@ export function IntegrationsModal({ isOpen, onClose }: IntegrationsModalProps) {
                     return (
                       <div
                         key={integration.id}
-                        className="border border-gray-200 dark:border-gray-800 rounded-lg p-6"
+                        className="border border-gray-200 dark:border-gray-800 rounded-lg p-3 sm:p-6"
                       >
-                        <div className="flex items-start justify-between">
-                          <div className="flex items-start gap-4">
+                        <div className="flex flex-col sm:flex-row items-start justify-between gap-3 sm:gap-0">
+                          <div className="flex items-start gap-3 sm:gap-4 flex-1">
                             <div className={`p-3 rounded-lg ${
                               integration.type === 'supabase' 
                                 ? 'bg-green-100 dark:bg-green-900/20' 
                                 : 'bg-gray-100 dark:bg-gray-800'
                             }`}>
                               <Icon 
-                                size={24} 
+                                size={20} 
                                 className={
                                   integration.type === 'supabase' 
                                     ? 'text-green-600 dark:text-green-400' 
@@ -439,13 +439,13 @@ export function IntegrationsModal({ isOpen, onClose }: IntegrationsModalProps) {
                               />
                             </div>
                             <div>
-                              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                              <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1">
                                 {integration.name}
                               </h3>
-                              <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+                              <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-3">
                                 {integration.description}
                               </p>
-                              <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                              <div className="flex items-center gap-4 text-xs sm:text-xs text-gray-500 dark:text-gray-400">
                                 <span className="flex items-center gap-1">
                                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                                   Connected
@@ -456,18 +456,18 @@ export function IntegrationsModal({ isOpen, onClose }: IntegrationsModalProps) {
                               </div>
                             </div>
                           </div>
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1 sm:gap-2 self-start sm:self-auto">
                             <button className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-                              <Settings size={16} />
+                              <Settings size={14} className="sm:w-4 sm:h-4" />
                             </button>
                             <button className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors">
-                              <ExternalLink size={16} />
+                              <ExternalLink size={14} className="sm:w-4 sm:h-4" />
                             </button>
                             <button
                               onClick={() => handleDisconnect(integration.id)}
                               className="p-2 text-red-400 hover:text-red-600 transition-colors"
                             >
-                              <Trash2 size={16} />
+                              <Trash2 size={14} className="sm:w-4 sm:h-4" />
                             </button>
                           </div>
                         </div>

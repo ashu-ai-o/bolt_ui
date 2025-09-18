@@ -8,7 +8,7 @@ function App() {
   return (
     <ThemeProvider>
       <AppStateProvider>
-        <div className="h-screen flex flex-col theme-bg-primary theme-text-primary">
+        <div className="min-h-screen flex flex-col theme-bg-primary theme-text-primary">
           <Header />
           <MainLayout />
         </div>
