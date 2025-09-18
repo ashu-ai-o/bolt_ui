@@ -33,19 +33,19 @@ function FileItem({ file, level, onFileSelect }: FileItemProps) {
     <div>
       <div
         onClick={handleClick}
-        className={`flex items-center gap-2 px-2 py-1 cursor-pointer hover:bg-gray-700 transition-colors text-xs`}
-        style={{ paddingLeft: `${8 + level * 12}px` }}
+        className={`flex items-center gap-2 py-1.5 cursor-pointer hover:theme-bg-tertiary transition-colors text-xs`}
+        style={{ paddingLeft: `${16 + level * 16}px`, paddingRight: '16px' }}
       >
         {file.type === 'folder' && (
           <>
             {expanded ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
-            {expanded ? <FolderOpen size={14} className="text-blue-400" /> : <Folder size={14} className="text-gray-400" />}
+            {expanded ? <FolderOpen size={14} className="text-blue-400" /> : <Folder size={14} className="theme-text-tertiary" />}
           </>
         )}
         {file.type === 'file' && (
           <span className="text-xs">{getFileIcon(file.name)}</span>
         )}
-        <span className="text-gray-300 truncate">{file.name}</span>
+        <span className="theme-text-secondary truncate">{file.name}</span>
       </div>
       
       {file.type === 'folder' && expanded && file.children && (
@@ -121,10 +121,10 @@ export function CodeSection() {
   return (
     <div className="flex-1 flex flex-col">
       {/* Tab Bar */}
-      <div className="h-10 theme-bg-secondary theme-border border-b flex items-center">
+      <div className="h-12 theme-bg-secondary theme-border border-b flex items-center px-6">
         <button
           onClick={() => setActiveTab('Code')}
-          className={`px-4 py-2 text-sm font-medium transition-all duration-200 border-b-2 ${
+          className={`px-6 py-3 text-sm font-medium transition-all duration-200 border-b-2 ${
             activeTab === 'Code'
               ? 'theme-text-primary border-blue-500'
               : 'theme-text-tertiary border-transparent hover:theme-text-secondary'
@@ -134,7 +134,7 @@ export function CodeSection() {
         </button>
         <button
           onClick={() => setActiveTab('Preview')}
-          className={`px-4 py-2 text-sm font-medium transition-all duration-200 border-b-2 ${
+          className={`px-6 py-3 text-sm font-medium transition-all duration-200 border-b-2 ${
             activeTab === 'Preview'
               ? 'theme-text-primary border-blue-500'
               : 'theme-text-tertiary border-transparent hover:theme-text-secondary'
@@ -147,15 +147,15 @@ export function CodeSection() {
       {activeTab === 'Code' ? (
         <div className="flex-1 flex">
           {/* File Explorer */}
-          <div className="w-56 theme-bg-secondary theme-border border-r flex flex-col">
-            <div className="p-3 theme-border border-b">
+          <div className="w-64 theme-bg-secondary theme-border border-r flex flex-col">
+            <div className="px-4 py-3 theme-border border-b">
               <div className="flex items-center gap-2">
                 <File size={16} className="theme-text-tertiary" />
                 <span className="theme-text-primary font-medium text-sm">Files</span>
               </div>
             </div>
             
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-1 overflow-y-auto py-2">
               {files.map(file => (
                 <FileItem key={file.id} file={file} level={0} onFileSelect={handleFileSelect} />
               ))}
@@ -166,7 +166,7 @@ export function CodeSection() {
           <div className="flex-1 flex flex-col">
             {/* File Tabs */}
             {openFiles.length > 0 && (
-              <div className="h-8 bg-black border-b border-gray-800 flex items-center overflow-x-auto">
+              <div className="h-10 bg-black border-b border-gray-800 flex items-center overflow-x-auto px-2">
                 {openFiles.map(fileId => {
                   const file = getFileById(fileId);
                   if (!file) return null;
@@ -175,7 +175,7 @@ export function CodeSection() {
                     <div
                       key={fileId}
                       onClick={() => setActiveFile(fileId)}
-                      className={`flex items-center gap-2 px-3 py-1 cursor-pointer border-r border-gray-800 text-xs whitespace-nowrap ${
+                      className={`flex items-center gap-2 px-4 py-2 cursor-pointer border-r border-gray-800 text-xs whitespace-nowrap ${
                         activeFile === fileId 
                           ? 'bg-gray-900 text-white' 
                           : 'bg-black text-gray-400 hover:text-gray-300'
@@ -184,7 +184,7 @@ export function CodeSection() {
                       <span>{file.name}</span>
                       <button
                         onClick={(e) => closeFile(fileId, e)}
-                        className="hover:bg-gray-600 rounded px-1 ml-1"
+                        className="hover:bg-gray-600 rounded px-1.5 py-0.5 ml-1"
                       >
                         ×
                       </button>
@@ -197,20 +197,20 @@ export function CodeSection() {
             {/* Code Editor */}
             <div className="flex-1 bg-black flex">
               {/* Line Numbers */}
-              <div className="w-12 bg-gray-900 border-r border-gray-800 flex flex-col text-xs text-gray-500 font-mono pt-4">
+              <div className="w-14 bg-gray-900 border-r border-gray-800 flex flex-col text-xs text-gray-500 font-mono pt-4">
                 {currentFile?.content?.split('\n').map((_, index) => (
-                  <div key={index} className="px-2 py-0.5 text-right leading-6">
+                  <div key={index} className="px-3 py-0.5 text-right leading-6">
                     {index + 1}
                   </div>
                 )) || Array.from({ length: 50 }, (_, index) => (
-                  <div key={index} className="px-2 py-0.5 text-right leading-6">
+                  <div key={index} className="px-3 py-0.5 text-right leading-6">
                     {index + 1}
                   </div>
                 ))}
               </div>
               
               {/* Code Content */}
-              <div className="flex-1 p-4 font-mono text-sm overflow-auto">
+              <div className="flex-1 p-6 font-mono text-sm overflow-auto">
                 {currentFile ? (
                   <pre className="text-white leading-6">
                     <code dangerouslySetInnerHTML={{ 
@@ -230,16 +230,16 @@ export function CodeSection() {
         /* Preview Only - Full Screen */
         <div className="flex-1 flex flex-col bg-white dark:bg-black">
           {/* Preview Controls */}
-          <div className="h-12 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-4">
+          <div className="h-14 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between px-6">
             <div className="flex items-center gap-2">
               <Eye size={16} className="text-gray-600 dark:text-white" />
               <span className="text-sm font-medium text-gray-900 dark:text-white">Preview</span>
             </div>
             
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-2">
               <button
                 onClick={() => setDeviceMode('desktop')}
-                className={`p-1.5 rounded transition-colors ${
+                className={`p-2 rounded-md transition-colors ${
                   deviceMode === 'desktop' 
                     ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400' 
                     : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300'
@@ -249,7 +249,7 @@ export function CodeSection() {
               </button>
               <button
                 onClick={() => setDeviceMode('tablet')}
-                className={`p-1.5 rounded transition-colors ${
+                className={`p-2 rounded-md transition-colors ${
                   deviceMode === 'tablet' 
                     ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400' 
                     : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300'
@@ -259,7 +259,7 @@ export function CodeSection() {
               </button>
               <button
                 onClick={() => setDeviceMode('mobile')}
-                className={`p-1.5 rounded transition-colors ${
+                className={`p-2 rounded-md transition-colors ${
                   deviceMode === 'mobile' 
                     ? 'bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400' 
                     : 'hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300'
@@ -268,19 +268,19 @@ export function CodeSection() {
                 <Smartphone size={14} />
               </button>
               
-              <div className="w-px h-4 bg-gray-300 dark:bg-gray-600 mx-1" />
+              <div className="w-px h-4 bg-gray-300 dark:bg-gray-600 mx-2" />
               
-              <button className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">
+              <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
                 <RotateCcw size={14} className="text-gray-600 dark:text-gray-300" />
               </button>
-              <button className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors">
+              <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md transition-colors">
                 <ExternalLink size={14} className="text-gray-600 dark:text-gray-300" />
               </button>
             </div>
           </div>
 
           {/* URL Bar */}
-          <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-800">
+          <div className="px-6 py-3 border-b border-gray-200 dark:border-gray-800">
             <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <span>http://localhost:5173</span>
@@ -288,8 +288,8 @@ export function CodeSection() {
           </div>
 
           {/* Preview Content - Full Screen */}
-          <div className="flex-1 p-4 bg-gray-50 dark:bg-black flex items-center justify-center">
-            <div className={`${getPreviewSize()} h-full bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden transition-all duration-300`}>
+          <div className="flex-1 p-6 bg-gray-50 dark:bg-black flex items-center justify-center">
+            <div className={`${getPreviewSize()} h-full bg-white dark:bg-gray-900 rounded-xl shadow-xl overflow-hidden transition-all duration-300`}>
               <iframe
                 src="data:text/html,<html><body style='margin:0;padding:40px;font-family:system-ui;background:linear-gradient(135deg,%20rgb(139%2C%2092%2C%20246)%200%25%2C%20rgb(59%2C%20130%2C%20246)%2050%25%2C%20rgb(16%2C%20185%2C%20129)%20100%25);min-height:100vh;display:flex;align-items:center;justify-content:center;color:white'><div style='text-align:center;max-width:400px'><h1 style='font-size:2.5rem;margin-bottom:1rem;font-weight:bold'>Zenflow</h1><p style='font-size:1.2rem;opacity:0.9;margin-bottom:2rem'>Productivity App with Beautiful Animations</p><div style='background:rgba(255,255,255,0.1);backdrop-filter:blur(10px);border-radius:12px;padding:2rem;border:1px solid rgba(255,255,255,0.2)'><h3 style='margin-bottom:1rem'>Features:</h3><ul style='text-align:left;line-height:1.8'><li>✨ Task Management</li><li>🎯 Habit Tracking</li><li>🌙 Dark/Light Theme</li><li>📱 Responsive Design</li></ul></div></div></body></html>"
                 className="w-full h-full border-0"

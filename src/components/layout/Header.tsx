@@ -10,7 +10,7 @@ export function Header() {
 
   return (
     <>
-      <header className="h-12 theme-bg-secondary theme-border border-b flex items-center justify-between px-4 transition-all duration-300">
+      <header className="h-14 theme-bg-secondary theme-border border-b flex items-center justify-between px-6 transition-all duration-300">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="theme-text-primary font-bold text-lg">bolt</div>
@@ -23,10 +23,10 @@ export function Header() {
           </button>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <ThemeToggle />
           
-          <div className="flex items-center gap-2 theme-bg-tertiary rounded-md px-3 py-1">
+          <div className="flex items-center gap-2 theme-bg-tertiary rounded-lg px-3 py-1.5">
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
             <span className="theme-text-secondary text-sm">Online</span>
             <ChevronDown size={14} className="theme-text-tertiary" />
@@ -34,7 +34,7 @@ export function Header() {
           
           <button 
             onClick={() => setShowSettings(true)}
-            className="p-2 theme-text-tertiary hover:theme-text-primary transition-colors rounded-md hover:theme-bg-tertiary"
+            className="p-2.5 theme-text-tertiary hover:theme-text-primary transition-colors rounded-lg hover:theme-bg-tertiary"
           >
             <Settings size={16} />
           </button>
@@ -48,7 +48,7 @@ export function Header() {
             <ChevronDown size={14} />
           </button>
           
-          <button className="btn-primary px-4 py-1.5 text-sm">
+          <button className="btn-primary px-5 py-2 text-sm">
             Publish
           </button>
         </div>

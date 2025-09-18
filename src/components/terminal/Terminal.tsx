@@ -32,7 +32,7 @@ export function Terminal() {
   return (
     <div className="h-full theme-bg-secondary flex flex-col">
       {/* Terminal Header */}
-      <div className="h-10 theme-bg-tertiary theme-border border-b flex items-center justify-between px-4">
+      <div className="h-12 theme-bg-tertiary theme-border border-b flex items-center justify-between px-6">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <TerminalIcon size={16} className="theme-text-tertiary" />
@@ -44,7 +44,7 @@ export function Terminal() {
           </div>
         </div>
         
-        <button className="theme-text-tertiary hover:theme-text-primary transition-colors">
+        <button className="theme-text-tertiary hover:theme-text-primary transition-colors p-1">
           <Plus size={16} />
         </button>
       </div>
@@ -52,7 +52,7 @@ export function Terminal() {
       {/* Terminal Content */}
       <div 
         ref={terminalRef}
-        className="flex-1 p-4 overflow-y-auto font-mono text-sm"
+        className="flex-1 px-6 py-4 overflow-y-auto font-mono text-sm"
       >
         {history.map((line, index) => (
           <div key={index} className={`leading-6 ${

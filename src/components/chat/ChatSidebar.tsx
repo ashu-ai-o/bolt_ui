@@ -36,10 +36,10 @@ export function ChatSidebar() {
   return (
     <div className="h-full flex flex-col">
       {/* Project Info */}
-      <div className="p-4 theme-border border-b">
-        <div className="theme-bg-tertiary rounded-lg p-6">
+      <div className="p-6 theme-border border-b">
+        <div className="theme-bg-tertiary rounded-xl p-6">
           <h3 className="theme-text-primary font-medium mb-2">Design Elements:</h3>
-          <ul className="theme-text-secondary text-sm space-y-2">
+          <ul className="theme-text-secondary text-sm space-y-1.5">
             <li>• Modern gradient backgrounds with glass morphism effects</li>
             <li>• Comprehensive color system with primary purple (#8B5CF6), secondary blue (#3B82F6), accent green (#10B981)</li>
             <li>• Smooth spring animations using CSS transforms and transitions</li>
@@ -50,7 +50,7 @@ export function ChatSidebar() {
           </ul>
         </div>
         
-        <div className="mt-6 p-4 theme-bg-tertiary rounded-lg">
+        <div className="mt-6 p-5 theme-bg-tertiary rounded-xl">
           <div className="flex items-center justify-between mb-2">
             <span className="theme-text-primary font-medium">Zenflow - Lovable Productivity App with Animations and Theme Switching</span>
             <button className="theme-text-tertiary hover:theme-text-primary">
@@ -58,7 +58,7 @@ export function ChatSidebar() {
             </button>
           </div>
           
-          <div className="space-y-3 text-sm">
+          <div className="space-y-2.5 text-sm">
             <div className="flex items-center gap-2 text-green-400">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               Create initial files
@@ -76,21 +76,21 @@ export function ChatSidebar() {
       </div>
 
       {/* Chat Input */}
-      <div className="p-4 mt-auto">
+      <div className="p-6 mt-auto">
         <div className="relative">
           <textarea
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyPress={handleKeyPress}
             placeholder="How can Bolt help you today? (or /command)"
-            className="w-full theme-bg-tertiary theme-border theme-text-primary border rounded-lg px-4 py-3 pr-12 placeholder-gray-400 resize-none focus:outline-none focus:border-blue-500 transition-all duration-300"
+            className="w-full theme-bg-tertiary theme-border theme-text-primary border rounded-xl px-4 py-3 pr-14 placeholder-gray-400 resize-none focus:outline-none focus:border-blue-500 transition-all duration-300"
             rows={3}
             disabled={isGenerating}
           />
           <button
             onClick={handleSend}
             disabled={!inputValue.trim() || isGenerating}
-            className="absolute bottom-3 right-3 p-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-md transition-all duration-200"
+            className="absolute bottom-3 right-3 p-2.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded-lg transition-all duration-200"
           >
             <Send size={16} />
           </button>

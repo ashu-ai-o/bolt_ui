@@ -14,8 +14,8 @@ export function ChatMessage({ message }: ChatMessageProps) {
   const isUser = message.type === 'user';
 
   return (
-    <div className="flex items-start gap-3">
-      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+    <div className="flex items-start gap-4">
+      <div className={`w-9 h-9 rounded-full flex items-center justify-center ${
         isUser 
           ? 'theme-bg-tertiary' 
           : 'bg-gradient-to-br from-blue-500 to-purple-600'
@@ -28,14 +28,14 @@ export function ChatMessage({ message }: ChatMessageProps) {
       </div>
       
       <div className="flex-1">
-        <div className={`rounded-lg p-3 ${
+        <div className={`rounded-xl p-4 ${
           isUser 
             ? 'bg-blue-50 dark:bg-blue-900/30 theme-text-primary' 
             : 'theme-bg-tertiary theme-text-primary'
         }`}>
           <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
         </div>
-        <p className="text-xs theme-text-tertiary mt-1">
+        <p className="text-xs theme-text-tertiary mt-2">
           {message.timestamp.toLocaleTimeString()}
         </p>
       </div>
